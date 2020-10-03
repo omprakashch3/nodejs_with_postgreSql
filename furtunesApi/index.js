@@ -26,6 +26,12 @@ app.get("/fortunes/:id", (req, res) => {
   res.json(fortunes.find((f) => f.id == req.params.id));
 });
 
+const writeFortunes = (json) => {
+  fs.writeFile("./data/fortune.json", JSON.stringify(json), (err) =>
+    console.log(err)
+  );
+};
+
 app.post("/fortunes", (req, res) => {
   // console.log(req.params);
   const { message, lucky_number, spirit_animal } = req.body;
@@ -36,12 +42,32 @@ app.post("/fortunes", (req, res) => {
     lucky_number,
     spirit_animal,
   };
-  const newFurtunes = fortunes.concat(fortune);
-  fs.writeFile("./data/fortune.json", JSON.stringify(newFurtunes), (err) =>
-    console.log(err)
-  );
+  const newFortunes = fortunes.concat(fortune);
+  // fs.writeFile("./data/fortune.json", JSON.stringify(newFortunes), (err) =>
+  //   console.log(err)
+  // );
+  writeFortunes(newFortunes);
 
-  res.json(newFurtunes);
+  res.json(newFortunes);
+});
+
+app.put("/fortunes/:id", (req, res) => {
+  const { id } = req.params;
+  // const { message, lucky_number, spirit_animal } = req.body;
+  const oldFortune = fortunes.find((f) => f.id == id);
+  // oldFortune.message = message; // if (message) oldFortune.message = message; to update partially
+  // oldFortune.lucky_number = lucky_number;
+  // oldFortune.spirit_animal = spirit_animal;
+
+  ["message", "lucky_number", "spirit_animal"].forEach((key) => {
+    if (req.body[key]) oldFortune[key] = req.body[key];
+  });
+
+  // fs.writeFile("./data/fortune.json", JSON.stringify(fortunes), (err) =>
+  //   console.log(err)
+  // );
+  writeFortunes(fortunes);
+  res.json(fortunes);
 });
 
 app.listen(PORT, () => {
