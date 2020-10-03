@@ -70,6 +70,13 @@ app.put("/fortunes/:id", (req, res) => {
   res.json(fortunes);
 });
 
+app.delete("/fortunes/:id", (req, res) => {
+  const { id } = req.params;
+  const newFortunes = fortunes.filter((f) => f.id != id);
+  writeFortunes(newFortunes);
+  res.json(newFortunes);
+});
+
 app.listen(PORT, () => {
   console.log(`listnig on port ${PORT}`);
 });
