@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "message": "hi i am om",
+    "lucky_number": 3,
+    "spirit_animal": "dog"
+  },
+  {
+    "id": 2,
+    "message": "i do like sports",
+    "lucky_number": 7,
+    "spirit_animal": "cat"
+  },
+  {
+    "id": 3,
+    "message": "love is around corner",
+    "lucky_number": 11,
+    "spirit_animal": "cow"
+  },
+  {
+    "id": 4,
+    "message": "fittest body is grantees for health",
+    "lucky_number": 17,
+    "spirit_animal": "horse"
+  }
+]
